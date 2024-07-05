@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 
 const ContactForm = () => {
   const initialValues = {
@@ -53,6 +53,7 @@ const ContactForm = () => {
       )
       .required("Required"),
   });
+
   const handleSubmit = (values, actions) => {
     const newContact = {
       id: nanoid(),
@@ -62,8 +63,10 @@ const ContactForm = () => {
     dispatch(addContact(newContact));
     actions.resetForm();
   };
+
   const nameId = useId();
   const phoneId = useId();
+
   return (
     <Formik
       onSubmit={handleSubmit}
